@@ -3,9 +3,21 @@ import os
 from sklearn.model_selection import train_test_split
 from torch.utils.data import Dataset
 from PIL import Image
-from torch.utils.data import DataLoader
+from torchvision.datasets import ImageFolder
 from torchvision.transforms import ToTensor
 
+import torch
+from skimage import io, transform
+import numpy as np
+import matplotlib.pyplot as plt
+from torch.utils.data import Dataset, DataLoader
+from torchvision import transforms, utils
+
+# Ignore warnings
+import warnings
+warnings.filterwarnings("ignore")
+
+plt.ion() 
 class LabelAttribution:
 
     def __init__(self, path_image_google, path_mask_google, path_image_ign, path_mask_ign,
@@ -102,11 +114,12 @@ class LabelAttribution:
 
 
 class CustomImageDataset(Dataset):
-    def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
-        self.img_labels = pd.read_csv(annotations_file)
+    def __init__(self, csv_dir, img_dir, transform=None, target_transform=None, resize=None):
+        self.img_labels = pd.read_csv(csv_dir)
         self.img_dir = img_dir
         self.transform = transform
         self.target_transform = target_transform
+        self.resize=resize
 
     def __len__(self):
         return len(self.img_labels)
@@ -116,9 +129,54 @@ class CustomImageDataset(Dataset):
         #image = read_image(img_path)
         image = Image.open(img_path).convert('RGB') #Yanis
         label = self.img_labels.iloc[idx, 1]
+
+        if self.resize:
+             image=image.resize(self.resize)
         if self.transform:
             image = self.transform(image)
             
         if self.target_transform:
             label = self.target_transform(label)
         return image, label
+
+def mean_std(loader):
+  images, lebels = next(iter(loader))
+  # shape of images = [b,c,w,h]
+  mean, std = images.mean([0,2,3]), images.std([0,2,3])
+  return mean, std
+
+def batch_mean_and_sd(loader):
+    
+    cnt = 0
+    fst_moment = torch.empty(3)
+    snd_moment = torch.empty(3)
+
+    for images, _ in loader:
+        b, c, h, w = images.shape
+        nb_pixels = b * h * w
+        sum_ = torch.sum(images, dim=[0, 2, 3])
+        sum_of_square = torch.sum(images ** 2,
+                                  dim=[0, 2, 3])
+        fst_moment = (cnt * fst_moment + sum_) / (
+                      cnt + nb_pixels)
+        snd_moment = (cnt * snd_moment + sum_of_square) / (
+                            cnt + nb_pixels)
+        cnt += nb_pixels
+
+    mean, std = fst_moment, torch.sqrt(
+    snd_moment - fst_moment ** 2)        
+    return mean,std
+# Dataset with flipping tranformations
+
+def vflip(tensor):
+    """Flips tensor vertically.
+    """
+    tensor = tensor.flip(1)
+    return tensor
+
+
+def hflip(tensor):
+    """Flips tensor horizontally.
+    """
+    tensor = tensor.flip(2)
+    return tensor
