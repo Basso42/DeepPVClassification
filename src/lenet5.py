@@ -28,10 +28,10 @@ class LeNet5(nn.Module):
 
             #Résumé
 
-            #Input: 400*400*3
-            #Après padding: 404*404*3
-            #Après convolution: 400*400*6 (400=404-5+1)
-            #Après pooling: 200*200*6
+            #Input: 28*28*3
+            #Après padding: 32*32*3
+            #Après convolution: 28*28*6 (400=32-5+1)
+            #Après pooling: 14*14*6
 
         ####Deuxième couche de convolution####
 
@@ -44,24 +44,24 @@ class LeNet5(nn.Module):
 
             #Résumé
 
-            #Input: 200*200*6
-            #Après convolution: 196*196*16 (196=200-5+1)
-            #Après pooling: 98*98*16
+            #Input: 14*14*6
+            #Après convolution: 10*10*16 (10=14-5+1)
+            #Après pooling: 5*5*16
         
         ####Troisième couche de convolution####
 
             nn.Conv2d(in_channels=16, out_channels=120, kernel_size=5, stride=1),
             nn.Tanh(),
 
-            #Input: 98*98*16
-            #Après convolution: 94*94*120 (94=98-5+1)
+            #Input: 5*5*16
+            #Après convolution: 1*1*120 (1=5-5+1)
 
             
             nn.Flatten(start_dim = 1, end_dim = -1), # on applique un applatissement à la dernière couche pour renvoyer un vecteur de taille 94*94*120=1060320 au classifieur
         )
 
         self.classifier = nn.Sequential(
-            nn.Linear(in_features=1060320, out_features=84),
+            nn.Linear(in_features=120, out_features=84),
             nn.Tanh(),
             nn.Linear(in_features=84, out_features=n_classes),
         )
