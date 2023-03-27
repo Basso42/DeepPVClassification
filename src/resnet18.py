@@ -13,7 +13,7 @@ from keras import losses
 from keras import optimizers
 from keras.optimizers import SGD
 
-from src.metrics import recall_m, precision_m, f1_m
+from metrics import recall_m, precision_m, f1_m
 
 
 def conv2d_bn(x, filters, kernel_size, weight_decay=.0, strides=(1, 1)):
@@ -84,9 +84,9 @@ def ResNet18(classes, input_shape, weight_decay=1e-4):
     model = Model(input, x, name='ResNet18')
     return model
 
-def buildModel(learnRate=0.01, dropout=0.2):
+def buildModel(learnRate=0.01, momentum=0.9, dropout=None):
 
     model = ResNet18(1, (224,224,3))
     model.build(input_shape = (None,224 ,224 ,3))
-    opt = SGD(learning_rate=1*10**-4, momentum = 0,decay = 0) 
+    opt = SGD(learning_rate=learnRate, momentum = momentum) 
     model.compile(optimizer = opt,loss='binary_crossentropy', metrics=["Accuracy", recall_m, precision_m, f1_m]) 
