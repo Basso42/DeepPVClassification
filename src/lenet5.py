@@ -2,8 +2,9 @@ import keras.layers as layers
 import keras
 import tensorflow as tf
 from src.metrics import recall_m, precision_m, f1_m
+from keras.optimizers import SGD
 
-def buildModel(learnRate=0.01, dropout=0.2):
+def buildModel(learnRate=0.01, dropout=0.2, momentum=0.9):
     model = keras.Sequential()
     # Layer 1 Conv2D
     model.add(layers.Conv2D(filters=6, kernel_size=(5, 5), strides=(1, 1), activation='tanh', input_shape=(28,28,3), padding="same"))
@@ -17,6 +18,7 @@ def buildModel(learnRate=0.01, dropout=0.2):
     model.add(layers.Dense(units=120, activation='tanh'))
     model.add(layers.Dense(units=84, activation='tanh'))
     model.add(layers.Dense(units=1, activation='sigmoid'))
+    sgd = SGD(learning_rate=learnRate, momentum=momentum)
     model.compile(optimizer='sgd',loss=tf.keras.losses.binary_crossentropy,metrics=["Accuracy", recall_m, precision_m, f1_m])
 
 
