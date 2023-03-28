@@ -12,10 +12,11 @@ from keras.regularizers import l2
 from keras import losses
 from keras import optimizers
 from keras.optimizers import SGD
+import tensorflow as tf
 
-from metrics import recall_m, precision_m, f1_m
-
-
+from src.metrics import recall_m, precision_m, f1_m
+#Weight decay: pénalisation de la loss en norme L2 pour réduire l'over-fitting
+#https://towardsdatascience.com/this-thing-called-weight-decay-a7cd4bcfccab
 def conv2d_bn(x, filters, kernel_size, weight_decay=.0, strides=(1, 1)):
     layer = Conv2D(filters=filters,
                    kernel_size=kernel_size,
@@ -89,4 +90,6 @@ def buildModel(learnRate=0.01, momentum=0.9, dropout=None):
     model = ResNet18(1, (224,224,3))
     model.build(input_shape = (None,224 ,224 ,3))
     opt = SGD(learning_rate=learnRate, momentum = momentum) 
-    model.compile(optimizer = opt,loss='binary_crossentropy', metrics=["Accuracy", recall_m, precision_m, f1_m]) 
+    model.compile(optimizer = opt,loss=tf.keras.losses.binary_crossentropy, metrics=["Accuracy", recall_m, precision_m, f1_m]) 
+    
+    return model
