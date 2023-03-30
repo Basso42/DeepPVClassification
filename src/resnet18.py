@@ -19,6 +19,7 @@ import tensorflow as tf
 from src.metrics import recall_m, precision_m, f1_m
 #Weight decay: pénalisation de la loss en norme L2 pour réduire l'over-fitting
 #https://towardsdatascience.com/this-thing-called-weight-decay-a7cd4bcfccab
+#https://machinelearningmastery.com/how-to-reduce-overfitting-in-deep-learning-with-weight-regularization/
 def conv2d_bn(x, filters, kernel_size, weight_decay=.0, strides=(1, 1)):
     layer = Conv2D(filters=filters,
                    kernel_size=kernel_size,
