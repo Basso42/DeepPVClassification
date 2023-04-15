@@ -1,7 +1,7 @@
 import keras.layers as layers
 import keras
 import tensorflow as tf
-from src.metrics import recall_m, precision_m, f1_m
+from src.metrics import recall_m, precision_m, f1_m, f2_m
 from keras.optimizers import SGD
 
 def buildModel(learnRate=0.01, dropout1=0.2, dropout2=0.2, dropout3=0.2, dropout4=0.2, momentum=0.9):
@@ -37,9 +37,6 @@ def buildModel(learnRate=0.01, dropout1=0.2, dropout2=0.2, dropout3=0.2, dropout
     model.add(layers.Dense(units=1, activation='sigmoid'))
 
     sgd = SGD(learning_rate=learnRate, momentum=momentum)
-    model.compile(optimizer=sgd,loss=tf.keras.losses.binary_crossentropy,metrics=["Accuracy", recall_m, precision_m, f1_m])
-
-
-    #model.compile(loss=loss_function_used, optimizer=tf.keras.optimizers.SGD(learning_rate=0.01), metrics=[keras.metrics.Accuracy(name="Accuracy"),f1_m ,keras.metrics.Precision(name="Precision"), keras.metrics.Recall(name="Recall")])
+    model.compile(optimizer=sgd,loss=tf.keras.losses.binary_crossentropy,metrics=["Accuracy", recall_m, precision_m, f1_m, f2_m])
 
     return model

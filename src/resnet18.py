@@ -111,6 +111,6 @@ def buildModel(learnRate=0.001, momentum=0.99, dropout1=0.6, dropout2=0.7,
     model = ResNet18(1, (224,224,3), dropout1, dropout2, dropout3, dropout4, dropout5, weight_decay)
     model.build(input_shape = (None,224 ,224 ,3))
     opt = SGD(learning_rate=learnRate, momentum = momentum) 
-    model.compile(optimizer = opt,loss=tf.keras.losses.binary_crossentropy, metrics=["Accuracy", recall_m, precision_m, f1_m]) 
+    model.compile(optimizer = opt,loss=tf.keras.losses.binary_crossentropy, metrics=["Accuracy", recall_m, precision_m, f1_m, f2_m]) 
     
     return model
