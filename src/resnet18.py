@@ -16,7 +16,7 @@ from keras import optimizers
 from keras.optimizers import SGD
 import tensorflow as tf
 
-from src.metrics import recall_m, precision_m, f1_m
+from src.metrics import recall_m, precision_m, f1_m, f2_m
 #Weight decay: pénalisation de la loss en norme L2 pour réduire l'over-fitting
 #https://towardsdatascience.com/this-thing-called-weight-decay-a7cd4bcfccab
 #https://machinelearningmastery.com/how-to-reduce-overfitting-in-deep-learning-with-weight-regularization/
