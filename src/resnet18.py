@@ -16,7 +16,7 @@ from keras import optimizers
 from keras.optimizers import SGD
 import tensorflow as tf
 
-from src.metrics import recall_m, precision_m, f1_m
+from src.metrics import recall_m, precision_m, f1_m, f2_m
 #Weight decay: pénalisation de la loss en norme L2 pour réduire l'over-fitting
 #https://towardsdatascience.com/this-thing-called-weight-decay-a7cd4bcfccab
 #https://machinelearningmastery.com/how-to-reduce-overfitting-in-deep-learning-with-weight-regularization/
@@ -105,8 +105,8 @@ def ResNet18(classes, input_shape, dropout1, dropout2, dropout3, dropout4, dropo
     model = Model(input, x, name='ResNet18')
     return model
 
-def buildModel(learnRate=0.001, momentum=0.99, dropout1=0.6, dropout2=0.7,
-                        dropout3=0.7, dropout4=0.4, dropout5=0.4, weight_decay=1e-4):
+def buildModel(learnRate=0.01, momentum=0.9, dropout1=0.1, dropout2=0.6,
+                        dropout3=0.3, dropout4=0.8, dropout5=0.5, weight_decay=1e-4):
 
     model = ResNet18(1, (224,224,3), dropout1, dropout2, dropout3, dropout4, dropout5, weight_decay)
     model.build(input_shape = (None,224 ,224 ,3))
