@@ -137,7 +137,7 @@ class CustomImageDataset(Dataset):
             
         if self.target_transform:
             label = self.target_transform(label)
-        return image, label
+        return image, label, img_path
 
 def mean_std(loader):
   images, lebels = next(iter(loader))
