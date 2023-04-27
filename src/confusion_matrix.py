@@ -14,7 +14,8 @@ def make_confusion_matrix(cf,
                           sum_stats=True,
                           figsize=None,
                           cmap='Blues',
-                          title=None):
+                          title=None,
+                          save=None):
     '''
     This function will make a pretty plot of an sklearn Confusion Matrix cm using a Seaborn heatmap visualization.
     Arguments
@@ -100,3 +101,7 @@ def make_confusion_matrix(cf,
     
     if title:
         plt.title(title)
+    if save !=None:
+        plt.savefig(save)
+    plt.show()
+
