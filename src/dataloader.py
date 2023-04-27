@@ -20,7 +20,7 @@ warnings.filterwarnings("ignore")
 plt.ion() 
 class LabelAttribution:
 
-    def __init__(self, path_image_google, path_mask_google,
+    def __init__(self, path_image_google, path_mask_google, path_mask_ign,
                  path_metadata,
                  colonne_identifiant,
                  path_export_train_test,
@@ -28,6 +28,7 @@ class LabelAttribution:
 
         self.path_image_google=path_image_google
         self.path_mask_google=path_mask_google
+        self.path_mask_ign=path_mask_ign
 
         self.path_metadata=path_metadata
         self.colonne_identifiant=colonne_identifiant
@@ -49,15 +50,18 @@ class LabelAttribution:
 
         im_mask_google = f(self.path_mask_google)
 
+        im_mask_ign=f(self.path_mask_ign)
+
         #### Conversion en DF
 
         im_google = pd.DataFrame (im_google, columns = [self.colonne_identifiant])
 
         im_mask_google = pd.DataFrame (im_mask_google, columns = [self.colonne_identifiant])
 
-        #On label '1' toutes les images Google et '0' sinon
-        im_google['Label'] = im_google[self.colonne_identifiant].isin(im_mask_google[self.colonne_identifiant]).astype(int)
+        im_mask_ign = pd.DataFrame (im_mask_ign, columns = [self.colonne_identifiant])
 
+        #On label '1' toutes les images Google et '0' sinon
+        im_google['Label'] = im_google[self.colonne_identifiant].isin(pd.concat([im_mask_google[self.colonne_identifiant], im_mask_ign[self.colonne_identifiant]], axis=0)).astype(int)
 
         im_google = im_google.drop_duplicates()
    
