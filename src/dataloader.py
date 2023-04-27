@@ -5,7 +5,7 @@ from torch.utils.data import Dataset
 from PIL import Image
 from torchvision.datasets import ImageFolder
 from torchvision.transforms import ToTensor
-
+import matplotlib.image as mpimg
 import torch
 from skimage import io, transform
 import numpy as np
@@ -47,7 +47,6 @@ class LabelAttribution:
 
 
         #création d'une fonction pour récupérer les noms d'un dossier
-
         def f(path):
             dirs = os.listdir(path) #on définit le directory d'où on souhaite extraire le nom des fichiers
             return [file.replace('.png','') for file in dirs]
@@ -114,6 +113,32 @@ class LabelAttribution:
 
 
 class CustomImageDataset(Dataset):
+    def __init__(self, csv_dir, img_dir, transform=None, target_transform=None, resize=None):
+        self.img_labels = pd.read_csv(csv_dir)
+        self.img_dir = img_dir
+        self.transform = transform
+        self.target_transform = target_transform
+        self.resize=resize
+
+    def __len__(self):
+        return len(self.img_labels)
+
+    def __getitem__(self, idx):
+        img_path = os.path.join(self.img_dir, self.img_labels.iloc[idx, 0])
+        #image = read_image(img_path)
+        image = Image.open(img_path).convert('RGB') #Yanis
+        label = self.img_labels.iloc[idx, 1]
+
+        if self.resize:
+             image=image.resize(self.resize)
+        if self.transform:
+            image = self.transform(image)
+            
+        if self.target_transform:
+            label = self.target_transform(label)
+        return image, label
+
+class CustomImageDataset_path(Dataset):
     def __init__(self, csv_dir, img_dir, transform=None, target_transform=None, resize=None):
         self.img_labels = pd.read_csv(csv_dir)
         self.img_dir = img_dir
