@@ -190,6 +190,102 @@ class BDAPPVClassification(Dataset):
             
         return image, label
 
+class BDAPPVClassification_path(Dataset):
+    def __init__(self, img_dir, transform = None, size = 224, random = True, opt = None, specialized = False):
+        """
+        Args:
+            img_dir (str): directory with all the images. Should have the following structure: 
+            img_dir/
+              |
+               -- img/
+              |
+               -- mask/
+               
+            transforms (callable, optional): optional image transforms to be applied on the image.  
+                                             (!) avoid crop transforms
+            size (int or None) : indicates the size of the crop. Applies transforms accordingly.
+            random (bool) : whether the cropping should be random or made at the center of the image.
+            opt (dict). a dictionnary with optional data. used for specialized training should contain :
+                - metadata (pd.Dataframe) the dataframe of installations' metadata
+                - cutoff (int) the desired cutoff
+            specialized (bool) : whether specialized training should be made. Default : false
+            """
+        self.img_dir = os.path.join(img_dir, 'img')
+        self.mask_dir = os.path.join(img_dir, 'mask')        
+        
+        self.transform = transform
+        self.size = size
+        self.random = random
+
+
+        # image and mask folders : filtering only the elements that end with .png.
+        self.img_folder = [img for img in os.listdir(self.img_dir) if img[-4:] == '.png']
+        self.mask_folder = [mask for mask in os.listdir(self.mask_dir) if mask[-4:] == '.png'] 
+
+        if specialized:
+
+            # get the cutoff and the metadata
+            metadata = opt['metadata']
+            cutoff = opt['cutoff']
+            case = opt['case']
+
+            if case == "above":
+                installations = metadata[metadata['kWp'] >= cutoff].values
+            elif case == 'below':
+                installations = metadata[metadata['kWp'] < cutoff].values
+
+            # update the attributes
+            # filter the images by those corresponding to the installations below or above the cutoff
+            self.img_folder = [img for img in self.img_folder if img[:-4] in installations]
+            self.mask_folder = [img for img in self.mask_folder if img[:-4] in installations]
+        
+
+    def __len__(self):        
+        return len(self.img_folder)
+
+    def __getitem__(self, idx):
+        
+        img_path = os.path.join(self.img_dir, self.img_folder[idx])        
+        image = transforms.ToTensor()(Image.open(img_path).convert("RGB"))
+        
+        label = int(self.img_folder[idx] in self.mask_folder) # check whether the image name is in the mask folder
+                                                         # to assign a label.
+        name = self.img_folder[idx][:-4] # Name : remove the extension
+        
+        self.name = self.img_folder[idx] # add the name in the attributes of the class
+            
+        if self.size is not None:
+            # apply crop transforms. 
+            # updates the label if necessary.
+            image, label = self.crop(image, label)    
+            
+        # apply the additional transforms to the image.
+        if self.transform:            
+            image = self.transform(image)
+            
+        return image, label, img_path
+    
+    # the function below is a helper function, called in the __getitem__            
+    def crop(self, image, label):
+        """
+        function that randomly crops the image
+        and updates the label accordingly
+        """        
+        if label == 0:
+            # no need to worry about a possible
+            # change in the label        
+            image, _, _ = apply_crop(image, self.size, self.random)
+            
+        elif label == 1:
+            # in this case, we need to check whether the crop
+            # leaves the label unchanged
+            
+            image, x, y = apply_crop(image, self.size)
+            
+            # check that the label does not change.
+            label = update_label(x, y, self.name, self.size, self.mask_dir)
+            
+        return image, label
 
 class BDAPPVSegmentation(Dataset):
     def __init__(self, img_dir, transform = None, size = 299, random = True, opt = None, specialized = False):
