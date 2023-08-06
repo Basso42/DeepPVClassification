@@ -171,3 +171,23 @@ def hflip(tensor):
     """
     tensor = tensor.flip(2)
     return tensor
+
+def deleteNA_img_mask(img_dir_google, mask_dir_google, path_NA_file):
+    """Supprime les images NA
+
+    Args:
+        img_dir_google (str): dossier contenant les images Google
+        img_dir_IGN (str): dossier contenant les images IGN
+        mask_dir_google (str): dossier contenant les masques Google
+        path_NA_file (str): path vers une image NA
+    """
+    NA_img=mpimg.imread(path_NA_file)
+    for (dirpath, dirnames, filenames) in os.walk(img_dir_google):
+        for file in filenames:
+            img_file=mpimg.imread(f'{dirpath}/{file}')
+            if np.array_equal(img_file, NA_img):
+                os.remove(f'{dirpath}/{file}')
+                try:
+                    os.remove(f'{mask_dir_google}/{file}')
+                except:
+                    print("L'image NA n'est associée à aucun masque")
