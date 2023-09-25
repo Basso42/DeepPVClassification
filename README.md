@@ -2,7 +2,7 @@
 
 ## **Applied Statistics Project: Deep Learning for Individual Solar Installation Detection from Aerial Images**
 
-Second-year project at ENSAE in partnership with [Réseau Transport d'Electricité (RTE)](https://en.wikipedia.org/wiki/RTE_(company))
+Second-year project at ENSAE in partnership with [Réseau Transport d'Electricité (RTE)](https://en.wikipedia.org/wiki/RTE_(company)). Grade: 18 out 20.
 ### **Key Idea**
 Estimating diffuse electrical production is an important issue for forecasting the electrical production and consumption of French households conducted by [RTE](https://www.rte-france.com/eco2mix/la-production-delectricite-par-filiere). Here, we deploy two convolutional neural network models (LeNet5 and ResNet18) to classify aerial images extracted from Google Earth Engine and labeled by [Kasmi et al. (2022)](https://www.nature.com/articles/s41597-023-01951-4).
 
