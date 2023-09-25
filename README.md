@@ -8,12 +8,12 @@ Estimating diffuse electrical production is an important issue for forecasting t
 
 ### **Organization of the deposit**
 
-* The "Stats_desc.ipynb" file contains descriptive statistics on the image base.
-* In the "LeNET5.ipynb" file, we parameterize the LeNet5 CNN to best predict the presence of solar panels on images.
-* In the "ResNet18-pre_trained.ipynb" file, we use a pre-trained ResNet18 architecture. The entire CNN is re-trained on the BDPV database.
-* In the "ResNet18-transfer learning.ipynb" file, only the fully-connected layers of the ResNet18 are re-trained on the BDPV database.
-* In the "ROC_PR_curve_ResNet18.ipynb" file, we display the ROC and precision-recall curves of the two ResNet18 CNNs for comparison.
-* The "src" folder contains some of the python modules imported into the various notebooks: the LeNet5 architecture, the dataloader, the code for creating the confusion matrix, etc.
-* The "weights" folder contains the weights of our models.
+* The ```Stats_desc.ipynb``` file contains descriptive statistics on the image base.
+* In the ```LeNET5.ipynb``` file, we parameterize the LeNet5 CNN to best predict the presence of solar panels on images.
+* In the ```ResNet18-pre_trained.ipynb``` file, we use a pre-trained ResNet18 architecture. The entire CNN is re-trained on the BDPV database.
+* In the ```ResNet18-transfer learning.ipynb" file, only the fully-connected layers of the ResNet18 are re-trained on the BDPV database.
+* In the ```ROC_PR_curve_ResNet18.ipynb``` file, we display the ROC and precision-recall curves of the two ResNet18 CNNs for comparison.
+* The ```src``` folder contains some of the python modules imported into the various notebooks: the LeNet5 architecture, the dataloader, the code for creating the confusion matrix, etc.
+* The ```weights``` folder contains the weights of our models.
 
 **Nota bene**: The file ```ResNet18-pre_trained.ipynb``` should be executed on the [INSEE cloud](https://datalab.sspcloud.fr/home) with the ```Jupyter-pytorch-gpu``` service and more than 15GB of ```persistence``` in the advanced service settings in order to download and unzip the dataset from [Kasmi et al. (2022)](https://www.nature.com/articles/s41597-023-01951-4). You should also adjust the number of GPUs in the script based on the chosen machine configuration. Here is [an example of a suitable service](https://datalab.sspcloud.fr/launcher/ide/jupyter-pytorch-gpu?autoLaunch=false&resources.requests.memory=%C2%AB37Gi%C2%BB&resources.limits.memory=%C2%AB115Gi%C2%BB&resources.requests.cpu=%C2%AB10400m%C2%BB&persistence.size=%C2%AB34Gi%C2%BB&onyxia.friendlyName=%C2%AB1_GPU_Torch_pers%C2%BB&git.repository=%C2%ABhttps%3A%2F%2Fgithub.com%2FBasso42%2FDeepPVClassification.git%C2%BB).
