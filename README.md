@@ -11,7 +11,7 @@ Estimating diffuse electrical production is an important issue for forecasting t
 * The ```Stats_desc.ipynb``` file contains descriptive statistics on the image base.
 * In the ```LeNET5.ipynb``` file, we parameterize the LeNet5 CNN to best predict the presence of solar panels on images.
 * In the ```ResNet18-pre_trained.ipynb``` file, we use a pre-trained ResNet18 architecture. The entire CNN is re-trained on the BDPV database.
-* In the ```ResNet18-transfer learning.ipynb" file, only the fully-connected layers of the ResNet18 are re-trained on the BDPV database.
+* In the ```ResNet18-transfer learning.ipynb``` file, only the fully-connected layers of the ResNet18 are re-trained on the BDPV database.
 * In the ```ROC_PR_curve_ResNet18.ipynb``` file, we display the ROC and precision-recall curves of the two ResNet18 CNNs for comparison.
 * The ```src``` folder contains some of the python modules imported into the various notebooks: the LeNet5 architecture, the dataloader, the code for creating the confusion matrix, etc.
 * The ```weights``` folder contains the weights of our models.
