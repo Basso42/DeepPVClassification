@@ -16,5 +16,6 @@ Estimating diffuse electrical production is an important issue for forecasting t
 * The ```delete_NA_img.ipynb``` file contains a function for deleting Google images that are associated with a "gray mask": the equivalent of a missing value for numerical data.
 * The ```src``` folder contains some of the python modules imported into the various notebooks: the LeNet5 architecture, the dataloader, the code for creating the confusion matrix, etc.
 * The ```weights``` folder contains the weights of our models.
-
+* ```rapport.pdf``` is the written project report
+ 
 **Nota bene**: The file ```ResNet18-pre_trained.ipynb``` should be executed on the [INSEE cloud](https://datalab.sspcloud.fr/home) with the ```Jupyter-pytorch-gpu``` service and more than 15GB of ```persistence``` in the advanced service settings in order to download and unzip the dataset from [Kasmi et al. (2022)](https://www.nature.com/articles/s41597-023-01951-4). You should also adjust the number of GPUs in the script based on the chosen machine configuration. Here is [an example of a suitable service](https://datalab.sspcloud.fr/launcher/ide/jupyter-pytorch-gpu?autoLaunch=false&resources.requests.memory=%C2%AB37Gi%C2%BB&resources.limits.memory=%C2%AB115Gi%C2%BB&resources.requests.cpu=%C2%AB10400m%C2%BB&persistence.size=%C2%AB34Gi%C2%BB&onyxia.friendlyName=%C2%AB1_GPU_Torch_pers%C2%BB&git.repository=%C2%ABhttps%3A%2F%2Fgithub.com%2FBasso42%2FDeepPVClassification.git%C2%BB).
