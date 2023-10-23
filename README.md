@@ -1,5 +1,3 @@
-# statapps
-
 ## **Applied Statistics Project: Deep Learning for Individual Solar Installation Detection from Aerial Images**
 
 Second-year project at ENSAE in partnership with [Réseau Transport d'Electricité (RTE)](https://en.wikipedia.org/wiki/RTE_(company)). Grade: 18 out 20.
@@ -21,6 +19,6 @@ Estimating diffuse electrical production is an important issue for forecasting t
 **Nota bene**: The file ```ResNet18-pre_trained.ipynb``` should be executed on the [INSEE cloud](https://datalab.sspcloud.fr/home) with the ```Jupyter-pytorch-gpu``` service and more than 15GB of ```persistence``` in the advanced service settings in order to download and unzip the dataset from [Kasmi et al. (2022)](https://www.nature.com/articles/s41597-023-01951-4). You should also adjust the number of GPUs in the script based on the chosen machine configuration. Here is [an example of a working session](https://datalab.sspcloud.fr/launcher/ide/jupyter-pytorch-gpu?autoLaunch=false&resources.requests.memory=%C2%AB37Gi%C2%BB&resources.limits.memory=%C2%AB115Gi%C2%BB&resources.requests.cpu=%C2%AB10400m%C2%BB&persistence.size=%C2%AB34Gi%C2%BB&onyxia.friendlyName=%C2%AB1_GPU_Torch_pers%C2%BB&git.repository=%C2%ABhttps%3A%2F%2Fgithub.com%2FBasso42%2FDeepPVClassification.git%C2%BB](https://datalab.sspcloud.fr/launcher/ide/jupyter-pytorch-gpu?autoLaunch=true&resources.requests.memory=«37Gi»&resources.limits.memory=«115Gi»&resources.requests.cpu=«10400m»&persistence.size=«34Gi»&onyxia.friendlyName=«GPU_statapps»&git.repository=«https%3A%2F%2Fgithub.com%2FBasso42%2FDeepPVClassification.git»&init.personalInit=«https%3A%2F%2Fminio.lab.sspcloud.fr%2Fgamer35%2Fshells_scripts%2Fshell_script_statapp.sh»)https://datalab.sspcloud.fr/launcher/ide/jupyter-pytorch-gpu?autoLaunch=true&resources.requests.memory=«37Gi»&resources.limits.memory=«115Gi»&resources.requests.cpu=«10400m»&persistence.size=«34Gi»&onyxia.friendlyName=«GPU_statapps»&git.repository=«https%3A%2F%2Fgithub.com%2FBasso42%2FDeepPVClassification.git»&init.personalInit=«https%3A%2F%2Fminio.lab.sspcloud.fr%2Fgamer35%2Fshells_scripts%2Fshell_script_statapp.sh»).
 
 ### References ###
-[A crowdsourced dataset of aerial images with annotated solar photovoltaic arrays and installation metadata](https://www.nature.com/articles/s41597-023-01951-4) Kasmi et al., 2023
-[Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) He et al., 2015
-[HyperionSolarNet: Solar Panel Detection from Aerial Images](https://arxiv.org/pdf/2201.02107.pdf)
+- [A crowdsourced dataset of aerial images with annotated solar photovoltaic arrays and installation metadata](https://www.nature.com/articles/s41597-023-01951-4) Kasmi et al., 2023
+- [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) He et al., 2015
+- [HyperionSolarNet: Solar Panel Detection from Aerial Images](https://arxiv.org/pdf/2201.02107.pdf)
