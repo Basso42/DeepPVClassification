@@ -20,5 +20,7 @@ Estimating diffuse electrical production is an issue of growing importance for t
 
 ### References ###
 [1][A crowdsourced dataset of aerial images with annotated solar photovoltaic arrays and installation metadata](https://www.nature.com/articles/s41597-023-01951-4) Kasmi et al., 2023
+
 [2][Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) He et al., 2015
+
 [//]: <> ([HyperionSolarNet: Solar Panel Detection from Aerial Images](https://arxiv.org/pdf/2201.02107.pdf) Parhar et al., 2022)
