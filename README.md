@@ -13,7 +13,7 @@ To tackle this issue, we deploy two convolutional neural network models:
 - **LeNet-5** (TensorFlow)
 - **ResNet-18** (PyTorch)
 
-These models classify aerial images extracted from Google Earth Engine, labeled by Kasmi et al. (2022)[1].
+These models classify aerial images extracted from Google Earth Engine, labeled by Kasmi et al. (2023)[1].
 
 ---
 
@@ -41,7 +41,7 @@ These models classify aerial images extracted from Google Earth Engine, labeled 
 ### **Running ResNet-18 Pre-trained Model**
 The `ResNet18-pre_trained.ipynb` notebook should be executed on the [INSEE cloud](https://datalab.sspcloud.fr/home) using the `Jupyter-pytorch-gpu` service with:
 - **Minimum Persistence:** 15GB
-- **Dataset Download & Extraction:** [Kasmi et al. (2022)](https://www.nature.com/articles/s41597-023-01951-4)
+- **Dataset Download & Extraction:** [Kasmi et al. (2023)](https://www.nature.com/articles/s41597-023-01951-4)
 - **GPU Configuration:** Adjust based on the machine setup.
 
 For an example of a properly configured working session, see [this link](https://datalab.sspcloud.fr/launcher/ide/jupyter-pytorch-gpu?autoLaunch=true&resources.requests.memory=«37Gi»&resources.limits.memory=«115Gi»&resources.requests.cpu=«10400m»&persistence.size=«34Gi»&onyxia.friendlyName=«GPU_statapps»&git.repository=«https%3A%2F%2Fgithub.com%2FBasso42%2FDeepPVClassification.git»).
